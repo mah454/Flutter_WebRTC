@@ -104,7 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
       'video': true,
     };
 
-    MediaStream stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+    // MediaStream stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+    MediaStream stream = await Helper.openCamera(mediaConstraints);
     _localRenderer.srcObject = stream;
     return stream;
   }
