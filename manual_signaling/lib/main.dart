@@ -44,7 +44,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final stunServers = {
     "iceServers": [
-      {"url": "stun:192.168.1.123:3478"},
+      {"url": "stun:stun.l.google.com:19302"},
+      {"url": "stun:stun.services.mozilla.com:3478"},
+      {"url": "stun:stun.ekiga.net"},
     ]
   };
 
@@ -139,60 +141,64 @@ class _MyHomePageState extends State<MyHomePage> {
     await _peerConnection.addCandidate(candidate);
   }
 
-  Row videoRenderers() => Row(
+  Expanded videoRenderers() => Expanded(
+      child:Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-            ),
-            width: 300,
-            height: 300,
-            padding: EdgeInsets.all(10),
-            child: RTCVideoView(
-              _localRenderer,
-              mirror: true,
-              placeholderBuilder: (context) {
-                return Container(
-                  color: Colors.grey,
-                  child: Center(
-                    child: Text(
-                      "Wait to local video ...",
-                      style: TextStyle(color: Colors.white),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+              ),
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+              child: RTCVideoView(
+                _localRenderer,
+                mirror: true,
+                placeholderBuilder: (context) {
+                  return Container(
+                    color: Colors.grey,
+                    child: Center(
+                      child: Text(
+                        "Wait to local video ...",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
           SizedBox(
             width: 10,
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-            ),
-            width: 300,
-            height: 300,
-            padding: EdgeInsets.all(10),
-            child: RTCVideoView(
-              _remoteRenderer,
-              mirror: true,
-              placeholderBuilder: (context) {
-                return Container(
-                  color: Colors.grey,
-                  child: Center(
-                    child: Text(
-                      "Wait to remote video ...",
-                      style: TextStyle(color: Colors.white),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+              ),
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+              child: RTCVideoView(
+                _remoteRenderer,
+                mirror: true,
+                placeholderBuilder: (context) {
+                  return Container(
+                    color: Colors.grey,
+                    child: Center(
+                      child: Text(
+                        "Wait to remote video ...",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ],
-      );
+      ),
+  );
 
   Row controllerButtons() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
